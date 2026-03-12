@@ -3,204 +3,452 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Règlement - Botola Foot</title>
-
+  <title>Règlement • Botola Veterans</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
+    /* ===== STYLE GLOBAL (identique aux autres pages) ===== */
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
 
+    :root {
+      --vert-profond: #0B3B2A;
+      --or-vieux: #C9A227;
+      --cuir: #8B5A2B;
+      --beige-antique: #F5F0E6;
+      --blanc-casse: #FAF7F2;
+      --gris-ardoise: #3A4A4A;
+      --ombre-douce: rgba(0, 0, 0, 0.1);
+      
+      --font-titres: 'Playfair Display', serif;
+      --font-texte: 'Montserrat', sans-serif;
+      
+      --border-radius-card: 24px;
+      --transition: all 0.3s ease;
+    }
+
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      color: #222;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .topbar {
+      font-family: var(--font-texte);
+      background-color: var(--beige-antique);
+      color: #1E2B2B;
+      line-height: 1.6;
       display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ===== HEADER PARALLAX ===== */
+    .hero {
+      position: relative;
+      height: 60vh;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 10px 14px;
-      border-radius: 8px;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      background: #27ae60;
-    }
-
-    .btn:hover {
-      opacity: 0.92;
-    }
-
-    .home-btn {
-      background: #2c3e50;
-    }
-
-    h1 {
       text-align: center;
-      margin-bottom: 25px;
+      color: white;
+      overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1431324155629-1a6deb1fb8d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center 30%;
     }
 
-    .card {
-      background: white;
-      border-radius: 14px;
-      padding: 22px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      margin-bottom: 20px;
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, rgba(11,59,42,0.85) 0%, rgba(139,90,43,0.7) 100%);
+      backdrop-filter: blur(2px);
     }
 
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      padding: 2rem;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    .hero h1 {
+      font-family: var(--font-titres);
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-shadow: 2px 4px 10px rgba(0,0,0,0.4);
+      margin-bottom: 0.5rem;
+      line-height: 1.1;
+    }
+
+    .hero h1 span {
+      color: var(--or-vieux);
+      font-style: italic;
+      display: block;
+      font-size: 0.6em;
+      letter-spacing: 6px;
+      font-weight: 300;
+    }
+
+    .hero p {
+      font-size: 1.4rem;
+      font-weight: 300;
+      text-shadow: 1px 2px 6px rgba(0,0,0,0.5);
+      margin-top: 1rem;
+      border-top: 2px solid var(--or-vieux);
+      display: inline-block;
+      padding-top: 1rem;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      width: 100%;
+      background: var(--blanc-casse);
+      box-shadow: 0 -20px 40px var(--ombre-douce);
+      border-radius: var(--border-radius-card) var(--border-radius-card) 0 0;
+      position: relative;
+      z-index: 5;
+      margin-top: -50px;
+    }
+
+    /* ===== BOUTON RETOUR ===== */
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--vert-profond);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 60px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .back-home:hover {
+      background: #0f5a3e;
+      transform: translateY(-3px);
+    }
+
+    /* ===== TITRES SECTIONS ===== */
     h2 {
-      margin-top: 0;
-      color: #8e44ad;
-    }
-
-    ul {
+      font-family: var(--font-titres);
+      font-size: 2.5rem;
+      color: var(--vert-profond);
+      margin: 2.5rem 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-left: 8px solid var(--or-vieux);
       padding-left: 20px;
-      line-height: 1.8;
     }
 
+    h2 i {
+      color: var(--cuir);
+      font-size: 2rem;
+    }
+
+    h3 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--cuir);
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px dashed var(--or-vieux);
+    }
+
+    /* ===== CARTES ===== */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .rule-card {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(5px);
+      border-radius: var(--border-radius-card);
+      padding: 2rem 1.5rem;
+      box-shadow: 0 10px 30px -10px var(--ombre-douce);
+      border: 1px solid rgba(201,162,39,0.2);
+      transition: var(--transition);
+    }
+    .rule-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--or-vieux);
+    }
+
+    .rule-card i {
+      font-size: 3rem;
+      color: var(--or-vieux);
+      margin-bottom: 1rem;
+    }
+
+    .rule-card h4 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--vert-profond);
+      margin-bottom: 1rem;
+    }
+
+    /* ===== LISTE À ICÔNES ===== */
+    .styled-list {
+      list-style: none;
+    }
+    .styled-list li {
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .styled-list li i {
+      color: var(--or-vieux);
+      font-size: 1.2rem;
+      margin-top: 3px;
+    }
+
+    /* ===== BADGES POUR CARTONS ===== */
     .badge {
       display: inline-block;
-      padding: 4px 10px;
-      border-radius: 999px;
-      color: white;
-      font-weight: bold;
-      font-size: 14px;
+      padding: 6px 14px;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 0.9rem;
       margin-right: 8px;
+      color: white;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
+    .badge.yellow { background: #f1c40f; color: #1e2b2b; }
+    .badge.red { background: #e74c3c; }
+    .badge.blue { background: #3498db; }
 
-    .yellow {
-      background: #f1c40f;
-      color: #222;
-    }
-
-    .red {
-      background: #e74c3c;
-    }
-
-    .blue {
-      background: #3498db;
-    }
-
+    /* ===== HIGHLIGHT (NOTE SPÉCIALE) ===== */
     .highlight {
-      background: #f9f9f9;
-      border-left: 5px solid #27ae60;
-      padding: 14px;
-      border-radius: 8px;
-      margin-top: 10px;
-      line-height: 1.7;
+      background: rgba(201,162,39,0.1);
+      border-left: 6px solid var(--or-vieux);
+      padding: 1.5rem;
+      border-radius: 16px;
+      margin: 2rem 0;
+      font-style: italic;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    .highlight i {
+      color: var(--or-vieux);
+      font-size: 2rem;
+      margin-right: 10px;
     }
 
+    /* ===== TABLEAU (OPTIONNEL) ===== */
+    .table-wrapper {
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(8px);
+      border-radius: var(--border-radius-card);
+      box-shadow: 0 20px 40px -15px var(--ombre-douce);
+      padding: 20px;
+      margin: 2rem 0;
+      border: 1px solid rgba(201,162,39,0.2);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th {
+      background: var(--vert-profond);
+      color: white;
+      padding: 12px;
+      text-align: left;
+    }
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(139,90,43,0.2);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--vert-profond);
+      color: var(--beige-antique);
+      text-align: center;
+      padding: 2.5rem 1rem;
+      margin-top: 3rem;
+      border-top: 6px solid var(--or-vieux);
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+
+    footer .logo {
+      font-family: var(--font-titres);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: var(--or-vieux);
+      margin-bottom: 0.5rem;
+    }
+
+    footer .logo i {
+      font-size: 2rem;
+      margin: 0 8px;
+    }
+
+    footer p {
+      opacity: 0.9;
+      font-size: 1rem;
+    }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      body {
-        padding: 12px;
-      }
-
-      .btn {
-        width: 100%;
-        text-align: center;
-      }
-
-      .topbar {
-        flex-direction: column;
-      }
+      .hero { height: 40vh; min-height: 300px; background-attachment: scroll; }
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 1rem; }
+      main { padding: 2rem 1rem; }
+      h2 { font-size: 2rem; }
+      .rules-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="topbar">
-      <a class="btn home-btn" href="index.html">⬅ Retour à l'accueil</a>
+  <!-- HEADER PARALLAX -->
+  <header class="hero">
+    <div class="hero-content">
+      <h1>
+        Règlement général
+        <span>ROI</span>
+      </h1>
+      <p>Football à 6 • Fair-play & tradition</p>
     </div>
+  </header>
 
-    <h1>📘 Règlement général / ROI</h1>
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- Bouton retour (conserve le lien vers index.html) -->
+    <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
 
-    <div class="card">
-      <h2>1. Format du championnat</h2>
-      <ul>
-        <li>Le championnat se joue en <strong>6 contre 6</strong>, avec <strong>1 gardien inclus</strong>.</li>
-        <li>Chaque équipe doit respecter ce format pendant toute la rencontre.</li>
-        <li>Le match se joue avec des entrées en jeu réalisées <strong>sur la ligne</strong>.</li>
-        <li>Il n’y a <strong>pas de hors-jeu</strong>.</li>
-      </ul>
-    </div>
+    <h2><i class="fas fa-scroll"></i> Les règles du jeu</h2>
 
-    <div class="card">
-      <h2>2. Durée des matchs</h2>
-      <ul>
-        <li>Chaque rencontre se joue en <strong>2 mi-temps</strong>.</li>
-        <li>La durée exacte d’un match et de la mi-temps peut être fixée par l’organisation avant le tournoi.</li>
-        <li>Une pause est prévue entre les deux périodes.</li>
-      </ul>
-
-      <div class="highlight">
-        💡 Exemple courant : 2 x 25 minutes avec une pause de 5 minutes.
-        <br>
-        Si tu veux, à l’étape suivante je peux te mettre une version figée avec la durée exacte que tu veux.
+    <!-- Grille de cartes pour les grandes sections (reprise du contenu original) -->
+    <div class="rules-grid">
+      <!-- Carte 1 : Format -->
+      <div class="rule-card">
+        <i class="fas fa-users"></i>
+        <h4>1. Format du championnat</h4>
+        <ul class="styled-list">
+          <li><i class="fas fa-check-circle"></i> 6 contre 6 (gardien inclus)</li>
+          <li><i class="fas fa-check-circle"></i> Entrées en jeu sur la ligne</li>
+          <li><i class="fas fa-check-circle"></i> Pas de hors-jeu</li>
+        </ul>
+      </div>
+      <!-- Carte 2 : Durée -->
+      <div class="rule-card">
+        <i class="fas fa-clock"></i>
+        <h4>2. Durée des matchs</h4>
+        <ul class="styled-list">
+          <li><i class="fas fa-check-circle"></i> 2 mi-temps (ex: 2×25 min)</li>
+          <li><i class="fas fa-check-circle"></i> Pause de 5 minutes</li>
+          <li><i class="fas fa-check-circle"></i> Adaptable selon tournoi</li>
+        </ul>
+      </div>
+      <!-- Carte 3 : Cartons & sanctions -->
+      <div class="rule-card">
+        <i class="fas fa-gavel"></i>
+        <h4>3. Cartons & sanctions</h4>
+        <ul class="styled-list">
+          <li><span class="badge yellow">Jaune</span> Exclu du match, peut jouer le suivant</li>
+          <li><span class="badge red">Rouge</span> Exclu + suspendu match suivant</li>
+          <li><span class="badge blue">Bleue</span> Exclusion temporaire 3 min</li>
+        </ul>
+      </div>
+      <!-- Carte 4 : Remise en jeu -->
+      <div class="rule-card">
+        <i class="fas fa-arrow-rotate-left"></i>
+        <h4>4. Remise en jeu</h4>
+        <ul class="styled-list">
+          <li><i class="fas fa-check-circle"></i> Au sol sur la ligne</li>
+          <li><i class="fas fa-check-circle"></i> 5 secondes max</li>
+        </ul>
+      </div>
+      <!-- Carte 5 : Règles du gardien -->
+      <div class="rule-card">
+        <i class="fas fa-hand"></i>
+        <h4>5. Règles du gardien</h4>
+        <ul class="styled-list">
+          <li><i class="fas fa-check-circle"></i> Pas de dégagement au pied</li>
+          <li><i class="fas fa-check-circle"></i> Relance à la main uniquement</li>
+          <li><i class="fas fa-check-circle"></i> 5 secondes pour relancer</li>
+        </ul>
+      </div>
+      <!-- Carte 6 : Esprit du jeu -->
+      <div class="rule-card">
+        <i class="fas fa-heart"></i>
+        <h4>6. Esprit du jeu</h4>
+        <ul class="styled-list">
+          <li><i class="fas fa-check-circle"></i> Respect adversaire/arbitre</li>
+          <li><i class="fas fa-check-circle"></i> Comportement antisportif sanctionné</li>
+          <li><i class="fas fa-check-circle"></i> Décisions de l'organisation</li>
+        </ul>
       </div>
     </div>
 
-    <div class="card">
-      <h2>3. Cartons et sanctions</h2>
-      <ul>
-        <li>
-          <span class="badge yellow">Jaune</span>
-          Le joueur est <strong>exclu du match en cours</strong>, mais il peut jouer le <strong>match suivant</strong>.
-        </li>
-        <li>
-          <span class="badge red">Rouge</span>
-          Le joueur est <strong>exclu du match en cours</strong> et également <strong>suspendu pour le match suivant</strong>.
-        </li>
-        <li>
-          <span class="badge blue">Bleue</span>
-          Le joueur est exclu <strong>temporairement pendant 3 minutes</strong>.
-        </li>
-      </ul>
-
-      <div class="highlight">
-        🔵 Un joueur peut recevoir <strong>maximum 3 cartes bleues par match</strong>.
-      </div>
+    <!-- Détails supplémentaires sous forme de notes -->
+    <div class="highlight">
+      <i class="fas fa-lightbulb"></i> 
+      <strong>Exemple de durée courante :</strong> 2 × 25 minutes avec une pause de 5 minutes. 
+     
     </div>
 
-    <div class="card">
-      <h2>4. Remise en jeu</h2>
-      <ul>
-        <li>Les remises en jeu se font <strong>au sol sur la ligne</strong>.</li>
-        <li>Le joueur dispose de <strong>5 secondes maximum</strong> pour remettre la balle en jeu.</li>
-        <li>Si ce délai n’est pas respecté, la possession peut être rendue à l’équipe adverse selon l’arbitrage.</li>
-      </ul>
+    <div class="highlight" style="background: rgba(201,162,39,0.15);">
+      <i class="fas fa-info-circle"></i>
+      <strong>Carton bleu :</strong> Un joueur peut recevoir <strong>maximum 3 cartes bleues par match</strong>.
     </div>
 
-    <div class="card">
-      <h2>5. Règles du gardien</h2>
-      <ul>
-        <li>Le gardien ne peut pas effectuer de <strong>dégagement au pied</strong>.</li>
-        <li>Le gardien doit relancer le ballon <strong>uniquement à la main</strong>.</li>
-        <li>Le gardien dispose de <strong>5 secondes</strong> pour lancer la balle.</li>
-      </ul>
+    <!-- Option : Tableau récapitulatif des cartons (pour plus de clarté) -->
+    <h3><i class="fas fa-clipboard-list"></i> Récapitulatif des sanctions</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Carte</th><th>Sanction immédiate</th><th>Conséquence</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="badge yellow">Jaune</span></td><td>Exclusion du match en cours</td><td>Peut jouer le match suivant</td></tr>
+          <tr><td><span class="badge red">Rouge</span></td><td>Exclusion du match</td><td>Suspendu pour le match suivant</td></tr>
+          <tr><td><span class="badge blue">Bleue</span></td><td>Exclusion temporaire 3 minutes</td><td>Maximum 3 par match</td></tr>
+        </tbody>
+      </table>
     </div>
 
-    <div class="card">
-      <h2>6. Esprit du jeu</h2>
-      <ul>
-        <li>Le respect de l’adversaire, de l’arbitre et des organisateurs est obligatoire.</li>
-        <li>Tout comportement antisportif peut entraîner une sanction supplémentaire.</li>
-        <li>L’organisation se réserve le droit d’adapter une décision en cas de situation exceptionnelle.</li>
-      </ul>
+    <!-- Dernière section : remise en jeu et gardien déjà inclus, mais on peut ajouter un petit rappel -->
+    <p style="text-align: right; font-style: italic; color: var(--gris-ardoise); margin-top: 2rem;">
+      <i class="fas fa-futbol"></i> Toute situation non prévue sera tranchée par l'organisation.
+    </p>
+  </main>
+
+  <!-- FOOTER AVEC SIGNATURE -->
+  <footer>
+    <div class="logo">
+      <i class="fas fa-futbol"></i> LouRi_Digital <i class="fas fa-futbol"></i>
     </div>
-  </div>
+    <p>Règlement officiel • Saison 2026 • Tous droits réservés</p>
+    <p style="font-size: 0.9rem; margin-top: 1rem;">Fair-play, cuir & tradition</p>
+  </footer>
+
+  <!-- (Aucun script nécessaire) -->
 </body>
 </html>
