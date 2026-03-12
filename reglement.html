@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Règlement - Botola Foot</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      color: #222;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      background: #27ae60;
+    }
+
+    .btn:hover {
+      opacity: 0.92;
+    }
+
+    .home-btn {
+      background: #2c3e50;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #8e44ad;
+    }
+
+    ul {
+      padding-left: 20px;
+      line-height: 1.8;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      margin-right: 8px;
+    }
+
+    .yellow {
+      background: #f1c40f;
+      color: #222;
+    }
+
+    .red {
+      background: #e74c3c;
+    }
+
+    .blue {
+      background: #3498db;
+    }
+
+    .highlight {
+      background: #f9f9f9;
+      border-left: 5px solid #27ae60;
+      padding: 14px;
+      border-radius: 8px;
+      margin-top: 10px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 12px;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .topbar {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <a class="btn home-btn" href="index.html">⬅ Retour à l'accueil</a>
+    </div>
+
+    <h1>📘 Règlement général / ROI</h1>
+
+    <div class="card">
+      <h2>1. Format du championnat</h2>
+      <ul>
+        <li>Le championnat se joue en <strong>6 contre 6</strong>, avec <strong>1 gardien inclus</strong>.</li>
+        <li>Chaque équipe doit respecter ce format pendant toute la rencontre.</li>
+        <li>Le match se joue avec des entrées en jeu réalisées <strong>sur la ligne</strong>.</li>
+        <li>Il n’y a <strong>pas de hors-jeu</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>2. Durée des matchs</h2>
+      <ul>
+        <li>Chaque rencontre se joue en <strong>2 mi-temps</strong>.</li>
+        <li>La durée exacte d’un match et de la mi-temps peut être fixée par l’organisation avant le tournoi.</li>
+        <li>Une pause est prévue entre les deux périodes.</li>
+      </ul>
+
+      <div class="highlight">
+        💡 Exemple courant : 2 x 25 minutes avec une pause de 5 minutes.
+        <br>
+        Si tu veux, à l’étape suivante je peux te mettre une version figée avec la durée exacte que tu veux.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>3. Cartons et sanctions</h2>
+      <ul>
+        <li>
+          <span class="badge yellow">Jaune</span>
+          Le joueur est <strong>exclu du match en cours</strong>, mais il peut jouer le <strong>match suivant</strong>.
+        </li>
+        <li>
+          <span class="badge red">Rouge</span>
+          Le joueur est <strong>exclu du match en cours</strong> et également <strong>suspendu pour le match suivant</strong>.
+        </li>
+        <li>
+          <span class="badge blue">Bleue</span>
+          Le joueur est exclu <strong>temporairement pendant 3 minutes</strong>.
+        </li>
+      </ul>
+
+      <div class="highlight">
+        🔵 Un joueur peut recevoir <strong>maximum 3 cartes bleues par match</strong>.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>4. Remise en jeu</h2>
+      <ul>
+        <li>Les remises en jeu se font <strong>au sol sur la ligne</strong>.</li>
+        <li>Le joueur dispose de <strong>5 secondes maximum</strong> pour remettre la balle en jeu.</li>
+        <li>Si ce délai n’est pas respecté, la possession peut être rendue à l’équipe adverse selon l’arbitrage.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>5. Règles du gardien</h2>
+      <ul>
+        <li>Le gardien ne peut pas effectuer de <strong>dégagement au pied</strong>.</li>
+        <li>Le gardien doit relancer le ballon <strong>uniquement à la main</strong>.</li>
+        <li>Le gardien dispose de <strong>5 secondes</strong> pour lancer la balle.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>6. Esprit du jeu</h2>
+      <ul>
+        <li>Le respect de l’adversaire, de l’arbitre et des organisateurs est obligatoire.</li>
+        <li>Tout comportement antisportif peut entraîner une sanction supplémentaire.</li>
+        <li>L’organisation se réserve le droit d’adapter une décision en cas de situation exceptionnelle.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sanctions - Botola Foot</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      color: #222;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      background: #27ae60;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      opacity: 0.92;
+    }
+
+    .home-btn {
+      background: #2c3e50;
+    }
+
+    .admin-btn {
+      background: #8e44ad;
+    }
+
+    .logout-btn {
+      background: #c0392b;
+      display: none;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      align-items: end;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .status {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background: #333;
+      color: white;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      color: white;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    .yellow {
+      background: #f1c40f;
+      color: #222;
+    }
+
+    .red {
+      background: #e74c3c;
+    }
+
+    .blue {
+      background: #3498db;
+    }
+
+    .ok {
+      background: #27ae60;
+    }
+
+    .warn {
+      background: #d35400;
+    }
+
+    .danger {
+      background: #c0392b;
+    }
+
+    .small-note {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .delete-btn {
+      background: #c0392b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    @media (max-width: 900px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .topbar {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <a class="btn home-btn" href="index.html">⬅ Retour à l'accueil</a>
+      <button class="btn admin-btn" id="adminBtn">Mode admin</button>
+      <button class="btn logout-btn" id="logoutBtn">Quitter le mode admin</button>
+    </div>
+
+    <div class="status" id="statusText">Mode spectateur</div>
+
+    <h1>🚨 Suivi des sanctions</h1>
+
+    <div class="card">
+      <h2>Ajouter une sanction</h2>
+
+      <div class="form-grid">
+        <div>
+          <label for="matchInput">Match</label>
+          <select id="matchInput" disabled></select>
+        </div>
+
+        <div>
+          <label for="teamInput">Équipe</label>
+          <input type="text" id="teamInput" placeholder="Ex: Milan" disabled />
+        </div>
+
+        <div>
+          <label for="playerInput">Joueur</label>
+          <input type="text" id="playerInput" placeholder="Nom du joueur" disabled />
+        </div>
+
+        <div>
+          <label for="cardInput">Carte</label>
+          <select id="cardInput" disabled>
+            <option value="yellow">Jaune</option>
+            <option value="red">Rouge</option>
+            <option value="blue">Bleue</option>
+          </select>
+        </div>
+
+        <div>
+          <button class="btn" id="saveSanctionBtn" disabled>Enregistrer la sanction</button>
+        </div>
+      </div>
+
+      <p class="small-note">
+        Une carte bleue = exclusion temporaire de 3 minutes. Maximum 3 cartes bleues par joueur et par match.
+      </p>
+    </div>
+
+    <div class="table-wrapper">
+      <table id="sanctionsTable">
+        <thead>
+          <tr>
+            <th>Match</th>
+            <th>Équipe</th>
+            <th>Joueur</th>
+            <th>Carte</th>
+            <th>Effet</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="table-wrapper">
+      <table id="suspensionsTable">
+        <thead>
+          <tr>
+            <th>Joueur</th>
+            <th>Équipe</th>
+            <th>Statut</th>
+            <th>Détail</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      setDoc
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA_g9wccgS_LAUyZKBPd85NkcqOj97_pYU",
+      authDomain: "botola-foot.firebaseapp.com",
+      projectId: "botola-foot",
+      storageBucket: "botola-foot.firebasestorage.app",
+      messagingSenderId: "518022489590",
+      appId: "1:518022489590:web:a77694d6ea9307035013d7"
+    };
+
+    const ADMIN_PASSWORD = "1234";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    let admin = false;
+
+    const matches = [
+      { id: 0, label: "22 mars - Milan vs Barcelone" },
+      { id: 1, label: "22 mars - Madrid vs Amsterdam" },
+      { id: 2, label: "05 avril - Amsterdam vs Roma" },
+      { id: 3, label: "05 avril - Milan vs Madrid" },
+      { id: 4, label: "12 avril - Barcelone vs Amsterdam" },
+      { id: 5, label: "12 avril - Roma vs Madrid" },
+      { id: 6, label: "26 avril - Madrid vs Milan" },
+      { id: 7, label: "26 avril - Roma vs Barcelone" },
+      { id: 8, label: "03 mai - Barcelone vs Roma" },
+      { id: 9, label: "03 mai - Milan vs Amsterdam" }
+    ];
+
+    const matchInput = document.getElementById("matchInput");
+    const teamInput = document.getElementById("teamInput");
+    const playerInput = document.getElementById("playerInput");
+    const cardInput = document.getElementById("cardInput");
+    const saveSanctionBtn = document.getElementById("saveSanctionBtn");
+    const sanctionsTbody = document.querySelector("#sanctionsTable tbody");
+    const suspensionsTbody = document.querySelector("#suspensionsTable tbody");
+    const statusText = document.getElementById("statusText");
+    const adminBtn = document.getElementById("adminBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    let sanctionsData = [];
+
+    function updateUiMode() {
+      statusText.textContent = admin ? "Mode admin activé" : "Mode spectateur";
+      logoutBtn.style.display = admin ? "inline-block" : "none";
+
+      matchInput.disabled = !admin;
+      teamInput.disabled = !admin;
+      playerInput.disabled = !admin;
+      cardInput.disabled = !admin;
+      saveSanctionBtn.disabled = !admin;
+      saveSanctionBtn.style.opacity = admin ? "1" : "0.6";
+      saveSanctionBtn.style.cursor = admin ? "pointer" : "not-allowed";
+
+      document.querySelectorAll(".delete-btn").forEach(button => {
+        button.disabled = !admin;
+        button.style.opacity = admin ? "1" : "0.6";
+        button.style.cursor = admin ? "pointer" : "not-allowed";
+      });
+    }
+
+    function populateMatchOptions() {
+      matchInput.innerHTML = "";
+      matches.forEach(match => {
+        const option = document.createElement("option");
+        option.value = match.id;
+        option.textContent = match.label;
+        matchInput.appendChild(option);
+      });
+    }
+
+    function getCardLabel(type) {
+      if (type === "yellow") return '<span class="badge yellow">Jaune</span>';
+      if (type === "red") return '<span class="badge red">Rouge</span>';
+      return '<span class="badge blue">Bleue</span>';
+    }
+
+    function getCardText(type) {
+      if (type === "yellow") return "Jaune";
+      if (type === "red") return "Rouge";
+      return "Bleue";
+    }
+
+    function getEffectText(type) {
+      if (type === "yellow") {
+        return "Exclu du match en cours, autorisé au prochain match";
+      }
+      if (type === "red") {
+        return "Exclu du match en cours + suspendu au prochain match";
+      }
+      return "Exclusion temporaire de 3 minutes";
+    }
+
+    async function loadSanctions() {
+      try {
+        const ref = doc(db, "settings", "sanctions");
+        const snap = await getDoc(ref);
+
+        if (snap.exists()) {
+          const data = snap.data();
+          sanctionsData = Array.isArray(data.items) ? data.items : [];
+        } else {
+          sanctionsData = [];
+        }
+
+        renderSanctions();
+        renderSuspensions();
+      } catch (error) {
+        console.error("Erreur chargement sanctions :", error);
+        alert("Erreur lors du chargement des sanctions.");
+      }
+    }
+
+    async function persistSanctions() {
+      await setDoc(doc(db, "settings", "sanctions"), {
+        items: sanctionsData
+      });
+    }
+
+    function renderSanctions() {
+      sanctionsTbody.innerHTML = "";
+
+      sanctionsData.forEach((item, index) => {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+          <td>${item.matchLabel}</td>
+          <td>${item.team}</td>
+          <td>${item.player}</td>
+          <td>${getCardLabel(item.card)}</td>
+          <td>${getEffectText(item.card)}</td>
+          <td><button class="delete-btn" data-index="${index}">Supprimer</button></td>
+        `;
+
+        sanctionsTbody.appendChild(tr);
+      });
+
+      if (sanctionsData.length === 0) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td colspan="6">Aucune sanction enregistrée pour le moment.</td>`;
+        sanctionsTbody.appendChild(tr);
+      }
+
+      document.querySelectorAll(".delete-btn").forEach(button => {
+        button.addEventListener("click", async (e) => {
+          if (!admin) {
+            alert("Seul l'admin peut supprimer une sanction.");
+            return;
+          }
+
+          const index = Number(e.currentTarget.dataset.index);
+          sanctionsData.splice(index, 1);
+          await persistSanctions();
+          renderSanctions();
+          renderSuspensions();
+          updateUiMode();
+        });
+      });
+
+      updateUiMode();
+    }
+
+    function renderSuspensions() {
+      suspensionsTbody.innerHTML = "";
+
+      if (sanctionsData.length === 0) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td colspan="4">Aucune donnée de suspension pour le moment.</td>`;
+        suspensionsTbody.appendChild(tr);
+        return;
+      }
+
+      const grouped = {};
+
+      sanctionsData.forEach(item => {
+        const key = `${item.team}__${item.player}`;
+
+        if (!grouped[key]) {
+          grouped[key] = {
+            team: item.team,
+            player: item.player,
+            yellowCount: 0,
+            redCount: 0,
+            blueCount: 0
+          };
+        }
+
+        if (item.card === "yellow") grouped[key].yellowCount += 1;
+        if (item.card === "red") grouped[key].redCount += 1;
+        if (item.card === "blue") grouped[key].blueCount += 1;
+      });
+
+      Object.values(grouped).forEach(player => {
+        let statusHtml = '<span class="badge ok">Disponible</span>';
+        let detail = "Aucune suspension active";
+
+        if (player.redCount > 0) {
+          statusHtml = '<span class="badge danger">Suspendu</span>';
+          detail = "Rouge reçu : suspendu pour le prochain match";
+        } else if (player.blueCount >= 3) {
+          statusHtml = '<span class="badge warn">Surveillance</span>';
+          detail = "3 cartes bleues enregistrées sur l’historique";
+        } else if (player.yellowCount > 0) {
+          statusHtml = '<span class="badge warn">À surveiller</span>';
+          detail = "Jaune reçu : exclu du match en cours, rejoue au match suivant";
+        }
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${player.player}</td>
+          <td>${player.team}</td>
+          <td>${statusHtml}</td>
+          <td>${detail}</td>
+        `;
+        suspensionsTbody.appendChild(tr);
+      });
+    }
+
+    async function addSanction() {
+      if (!admin) {
+        alert("Seul l'admin peut ajouter une sanction.");
+        return;
+      }
+
+      const matchId = Number(matchInput.value);
+      const team = teamInput.value.trim();
+      const player = playerInput.value.trim();
+      const card = cardInput.value;
+
+      if (!team || !player) {
+        alert("Tu dois renseigner l'équipe et le joueur.");
+        return;
+      }
+
+      const selectedMatch = matches.find(m => m.id === matchId);
+      if (!selectedMatch) {
+        alert("Match invalide.");
+        return;
+      }
+
+      if (card === "blue") {
+        const sameBlueCount = sanctionsData.filter(item =>
+          item.matchId === matchId &&
+          item.team.toLowerCase() === team.toLowerCase() &&
+          item.player.toLowerCase() === player.toLowerCase() &&
+          item.card === "blue"
+        ).length;
+
+        if (sameBlueCount >= 3) {
+          alert("Maximum 3 cartes bleues pour ce joueur sur ce match.");
+          return;
+        }
+      }
+
+      sanctionsData.push({
+        matchId,
+        matchLabel: selectedMatch.label,
+        team,
+        player,
+        card,
+        createdAt: Date.now()
+      });
+
+      await persistSanctions();
+
+      teamInput.value = "";
+      playerInput.value = "";
+      cardInput.value = "yellow";
+
+      renderSanctions();
+      renderSuspensions();
+      alert("Sanction enregistrée ✅");
+    }
+
+    adminBtn.addEventListener("click", () => {
+      const pass = prompt("Mot de passe admin");
+      if (pass === ADMIN_PASSWORD) {
+        admin = true;
+        updateUiMode();
+        alert("Mode admin activé ✅");
+      } else if (pass !== null) {
+        alert("Mot de passe incorrect.");
+      }
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      admin = false;
+      updateUiMode();
+      alert("Mode admin désactivé.");
+    });
+
+    saveSanctionBtn.addEventListener("click", addSanction);
+
+    populateMatchOptions();
+    loadSanctions();
+    updateUiMode();
+  </script>
+</body>
+</html>
